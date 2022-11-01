@@ -34,6 +34,7 @@
 - How did I made it?
     - I am using a neural network for this classifier, so we need data.
         - Dataset Preparation: We will need a lot of images to train the neural network(and ideally, quality images). Therefore, inspired by some blog posts, I have written a small scraper that will fetch the images I need from Google.
+        - Scraper: https://github.com/zslrmhb/Kun_Scraper
     - My choice of neural network architecture is a pre-trained ResNet-18.
         - Since it is pre-trained, my model can converges quickly and learn better by transfer learning than starts from scratch.
         - Might be an overkill in this task given the distinction between the features of the human and chicken.
