@@ -19,7 +19,7 @@
            pip -r install requirements.txt
         ```
     2. Go to inference.py
-    3. Change the path of the **torch.load** at the 35th line to the *absolute path* of the *kun_weight.pt* file in this repository
+    3. Change the path of the **torch.load** at the 47th line to the *absolute path* of the *kun_weight.pt* file in this repository
     4. Change **img_path** to the *absolute path* of the image you want to classify (the classification only work for that specific human and arbitrary chickens, but of course you can use unrelated images for your own entertaining purposes)
 
     5. Change **fontpath** to the *absolute path* of the *kun.ttf* under the *font* directory of this repository

@@ -32,7 +32,6 @@ class Kun_Classifier:
     model.fc = nn.Linear(nr_filters, 1)
     model = model.to(device)
 
-
     img = Image.open(img_path).convert('RGB') 
 
     transformations = transforms.Compose([transforms.Resize((224,224)),
@@ -47,7 +46,6 @@ class Kun_Classifier:
     #TODO
     # model.load_state_dict(torch.load("???.pt", map_location=torch.device(device)))
 
-    # model.load_state_dict(torch.load("C:/Users/zslrm/Desktop/Data_Science_Projects/Kun_Classifier/kun_weight.pt", map_location=torch.device(device)))
     model.eval()
 
     pred = model(img_tensor)
@@ -66,7 +64,6 @@ class Kun_Classifier:
     """
     inference_result = self.inference(img_path)
     
-
     dimensions = (224, 224)
     height = dimensions[0]
     width = dimensions[1]
@@ -90,14 +87,9 @@ class Kun_Classifier:
     # cv2.imwrite('zhiyin_predict.jpg', img)
     cv2.waitKey(0)
 
-
 #TODO
 #img_path = ???.jpg
 #fontpath = ???.ttf
-
-# img_path = 'C:/Users/zslrm/Desktop/Data_Science_Projects/Kun_Classfier/zhiyin.jpg'
-# fontpath = "C:/Users/zslrm/Desktop/Data_Science_Projects/Kun_Classfier/font/kun.ttf"
-
 
 kuner = Kun_Classifier()
 kuner.classify_and_show(img_path, fontpath)
