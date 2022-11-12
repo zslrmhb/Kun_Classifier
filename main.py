@@ -51,8 +51,8 @@ class Kun_Classifier:
     :params: img_path: the image path of the image for inference
     :returns: the inference result in terms of strings
     """
-    kun = "鉴定为坤"
-    chicken = "鉴定为只因"
+    kun = "KUN | 含坤量为:{}%"
+    chicken = "CHICKEN | 含只因量为:{}%"
 
     model = models.resnet18(pretrained=True)
     nr_filters = model.fc.in_features
@@ -76,28 +76,24 @@ class Kun_Classifier:
     model.eval()
 
     pred = model(img_tensor)
-    confidence = torch.sigmoid(pred)
-    if confidence < 0.5:
-      return kun, confidence
+    sigmoid = torch.sigmoid(pred)
+
+    if sigmoid < 0.5:
+
+
+      return kun.format(round(float(100 * (1-sigmoid)), 2))
+
     else:
-      return chicken, confidence
+      return chicken.format(round(float(100 * sigmoid), 2))
 
 kuner = Kun_Classifier()
 
 
 
-
-
-
-
-
-
-
-
 # Welcome Page
 st.title("KUN-er Classifier")
-st.caption('Welcome! | 欢迎各位小黑子们前来体验二元坤类器!')
-st.text(""".git
+st.caption('Welcome! | 欢迎各位小黑子们前来体验二元坤类器! | https://github.com/zslrmhb/Kun_Classifier')
+st.text("""
 
     """)
 
@@ -114,17 +110,13 @@ def show_and_classify(user_choice, classify=False):
         result = CHICKEN_DIR + '/' + random.choice(os.listdir(CHICKEN_DIR))
     else:
         result = random.choice([KUN_DIR + '/' + random.choice(os.listdir(KUN_DIR)), CHICKEN_DIR + '/' + random.choice(os.listdir(CHICKEN_DIR))])
-    
+
     img = cv2.imread(result)
-    fig = plt.figure()
     converted_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    plt.imshow(converted_img)
-    plt.axis('off')
-    st.pyplot(fig, clear_figure=True)
+    st.image(converted_img)
 
-    if classify: st.write(kuner.inference(result))
+    if classify: st.caption(kuner.inference(result))
 
-    # st.subheader('Kun!')
 
 
 
@@ -141,3 +133,12 @@ desired_classify = st.slider('Kun(0) or Chicken(1) or Random(2)?', 0, 2, 1)
 if (st.button("Classify")): show_and_classify(desired_classify, True)
 
 
+# User Input
+def classify_user_input(picture):
+  if picture:
+    st.caption(kuner.inference(picture))
+
+
+st.header('Try your image!')
+picture = st.camera_input("Take a picture")
+classify_user_input(picture)
