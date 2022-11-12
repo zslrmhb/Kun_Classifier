@@ -96,5 +96,6 @@ fontpath = os.getcwd() + '/font\kun.ttf'
 # img_path=  os.getcwd() + '\Dataset\kun/10.jpg'
 
 
-kuner = Kun_Classifier()
-kuner.classify_and_show(img_path, fontpath)
+# kuner = Kun_Classifier()
+# kuner.classify_and_show(img_path, fontpath)
+print(cv2.__version__)
