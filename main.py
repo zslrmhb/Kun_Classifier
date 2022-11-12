@@ -27,7 +27,8 @@ from PIL import Image, ImageFont, ImageDraw
 
 KUN_DIR = os.getcwd() + '/Dataset/kun'
 CHICKEN_DIR = os.getcwd() + '/Dataset/zhiyin'
-WEIGHT_DIR = os.getcwd() + "\kun_weight.pt"
+# WEIGHT_DIR = os.getcwd() + "\kun_weight.pt" # for debugging/testing
+WEIGHT_DIR = os.getcwd() + "kun_weight.pt" # for deploying
 
 # Kun Classifier
 device = "cuda" if torch.cuda.is_available() else "cpu"
