@@ -21,11 +21,8 @@
         ```
     2. Go to inference.py
     3. Download the *kun_weight.pt* of this repository at this link: https://drive.google.com/file/d/1BYjrLHCwFRyfqR8oPDTLrEXT6S1TppPX/view?usp=sharing
-    4. Change the path of the **torch.load** at the 47th line to the *absolute path* of the *kun_weight.pt* file in this repository
-    5. Change **img_path** to the *absolute path* of the image you want to classify (the classification only work for that specific human and arbitrary chickens, but of course you can use unrelated images for your own entertaining purposes)
-
-    6. Change **fontpath** to the *absolute path* of the *kun.ttf* under the *font* directory of this repository
-    7. Run the python program and enjoy!
+    4. Change **img_path** to the *absolute path* of the image you want to classify (the classification only work for that specific human and arbitrary chickens, but of course you can use unrelated images for your own entertaining 
+    5. Run the python program and enjoy!
 ---
 - Datasets:
     - Kunkun: https://drive.google.com/drive/folders/17kMVt1Vhnm-W0dCF0o67Hwh3RLSvbcbc?usp=sharing
