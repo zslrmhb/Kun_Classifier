@@ -1,7 +1,9 @@
 # 二元坤类器
 ---
+## Web Version has Now Release!!!
+[Kun Classifier](https://zslrmhb-kun-classifier-main-ln6tzp.streamlit.app/)
 
-
+---
 ![kun](Assets/kun.jpg)
 ![kun_classify](Assets/kun_predict.jpg)
 ![zhiyin](Assets/zhiyin.jpg)

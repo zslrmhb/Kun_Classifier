@@ -11,10 +11,29 @@ import  matplotlib.pyplot as plt
 from torchvision import transforms, models
 from PIL import Image, ImageFont, ImageDraw
 
-def autoplay_audio(file_path: str, loop=False):
+def autoplay_audio(file_path: str):
   # code from https://github.com/streamlit/streamlit/issues/2446
-  if loop:
-    with open(file_path, "rb") as f:
+  # https://discuss.streamlit.io/t/remove-a-markdown/4053/2
+  placeholder = st.empty()
+  with open(file_path, "rb") as f:
+    data = f.read()
+    b64 = base64.b64encode(data).decode()
+    md = f"""
+        <audio controls autoplay="true" >
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+        """
+    placeholder.markdown(
+        md,
+        unsafe_allow_html=True,
+    )
+    time.sleep(1)
+    placeholder.empty()
+
+def autoplay_audio_loop(file_path: str):
+  # code from https://github.com/streamlit/streamlit/issues/2446
+  # https://discuss.streamlit.io/t/remove-a-markdown/4053/2
+  with open(file_path, "rb") as f:
         data = f.read()
         b64 = base64.b64encode(data).decode()
         md = f"""
@@ -22,24 +41,9 @@ def autoplay_audio(file_path: str, loop=False):
             <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
             </audio>
             """
-        st.empty()
         st.markdown(
             md,
             unsafe_allow_html=True,
-        )
-  else:
-    with open(file_path, "rb") as f:
-      data = f.read()
-      b64 = base64.b64encode(data).decode()
-      md = f"""
-          <audio controls autoplay="true">
-          <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-          </audio>
-          """
-      st.empty()
-      st.markdown(
-          md,
-          unsafe_allow_html=True,
         )
 
 KUN_DIR = os.getcwd() + '/Dataset/kun'
@@ -90,21 +94,20 @@ class Kun_Classifier:
     sigmoid = torch.sigmoid(pred)
 
     if sigmoid < 0.5:
-      autoplay_audio('biebie.wav')
+      autoplay_audio('Assets/biebie.wav')
       return kun.format(a=round(float(100 * (1-sigmoid)), 2))
     else:
-      autoplay_audio('zhiyin.wav')
+      autoplay_audio('Assets/zhiyin.wav')
       return chicken.format(a=round(float(100 * sigmoid), 2))
 
 kuner = Kun_Classifier()
 
 # Welcome Page
 st.title("KUN-er Classifier")
-autoplay_audio('ji.mp3')
+autoplay_audio_loop('Assets/ji.mp3')
 st.caption('Welcome! | 欢迎各位小黑子们前来体验二元坤类器! | https://github.com/zslrmhb/Kun_Classifier')
 
-
-if st.button("Don't Click! | 小黑子勿按！"):autoplay_audio("background.mp3")
+if st.button("Don't Click! | 小黑子勿按！"):autoplay_audio_loop("Assets/background.mp3")
 
 
 tab1, tab2, tab3 = st.tabs(["Data Visualization | 让我康康", "Classification | 二元坤类器", "Let me try try | 让我试试"])
@@ -130,13 +133,13 @@ with tab1:
 
 
   desired_image = st.select_slider('', options=['kun | 坤', 'chicken | 只因'])
-  if (st.button("Get")): show_and_classify(desired_image)
+  if (st.button("Get 👆")): show_and_classify(desired_image)
 
 with tab2:
 # Classification
   st.subheader('Classification | 二元坤类器')
   desired_classify = st.select_slider('', options=['kun | 坤',  'Random | 随便', 'chicken | 只因'])
-  if (st.button("Classify")): show_and_classify(desired_classify, True)
+  if (st.button("Classify 👆")): show_and_classify(desired_classify, True)
 
 with tab3:
 # User Input
