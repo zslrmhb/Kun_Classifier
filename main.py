@@ -3,6 +3,7 @@ import streamlit as st
 import os
 import cv2
 import random
+import base64
 import torch
 import torch.nn as nn
 import  matplotlib.pyplot as plt
@@ -10,25 +11,9 @@ from torchvision import transforms, models
 from PIL import Image, ImageFont, ImageDraw
 
 
-
-
-# music = """
-#         <audio controls autoplay>
-#         <source src="{}" type="audio/mp3">
-#         </audio>
-#         """.format(os.getcwd() + '/background.mp3')
-# # st.markdown(os.getcwd() + '/background.mp3')
-# sound = st.empty()
-# st.markdown(music, unsafe_allow_html=True)
-# time.sleep(2)
-# sound.empty()
-
-# some global variables
-
 KUN_DIR = os.getcwd() + '/Dataset/kun'
 CHICKEN_DIR = os.getcwd() + '/Dataset/zhiyin'
-# WEIGHT_DIR = os.getcwd() + "\kun_weight.pt" # for debugging/testing
-WEIGHT_DIR = os.getcwd() + "/kun_weight.pt" # for deploying
+WEIGHT_DIR = os.getcwd() + "/kun_weight.pt" 
 
 # Kun Classifier
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -80,11 +65,6 @@ class Kun_Classifier:
 
 kuner = Kun_Classifier()
 
-
-
-
-
-
 # Welcome Page
 st.title("KUN-er Classifier")
 st.caption('Welcome! | 欢迎各位小黑子们前来体验二元坤类器! | https://github.com/zslrmhb/Kun_Classifier')
@@ -92,16 +72,29 @@ st.text("""
 
     """)
 
+def autoplay_audio(file_path: str):
+  # code from https://github.com/streamlit/streamlit/issues/2446
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        md = f"""
+            <audio controls autoplay="true" loop="true">
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+            """
+        st.empty()
+        st.markdown(
+            md,
+            unsafe_allow_html=True,
+        )
+if st.button("Don't Click! | 小黑子勿按！"):autoplay_audio("background.mp3")
 
 
-tab1, tab2, tab3 = st.tabs(["Data Visualization | 让我康康", "Classification | 二元坤类器", "Your Image | 我想试试"])
-
-
+tab1, tab2, tab3 = st.tabs(["Data Visualization | 让我康康", "Classification | 二元坤类器", "Let me try try | 让我试试"])
 
 # Data Visualization
 with tab1:
-  st.header('Data Visualization | 让我康康')
-
+  st.subheader('Data Visualization | 让我康康')
 
   def show_and_classify(user_choice, classify=False):
 
@@ -123,16 +116,16 @@ with tab1:
 
 with tab2:
 # Classification
-  st.header('Classification | 二元坤类器')
+  st.subheader('Classification | 二元坤类器')
   desired_classify = st.slider('Kun(0) or Chicken(1) or Random(2)? | 坤 或 只因 或 两个都要 (bushi', 0, 2, 1)
   if (st.button("Classify")): show_and_classify(desired_classify, True)
 
 with tab3:
 # User Input
+  st.subheader('Let me try try | 让我试试')
   def classify_user_input(picture):
     if picture:
       st.caption(kuner.inference(picture))
 
-  st.header('Try your image!')
-  picture = st.camera_input("Take a picture!")
+  picture = st.camera_input("")
   classify_user_input(picture)
