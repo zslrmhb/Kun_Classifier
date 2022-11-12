@@ -1,3 +1,4 @@
+import os
 import cv2
 import numpy as np
 import torch
@@ -43,8 +44,8 @@ class Kun_Classifier:
   ])
     img_tensor = transformations(img).reshape(1,3,224,224).to(device)
 
-    #TODO
-    # model.load_state_dict(torch.load("???.pt", map_location=torch.device(device)))
+
+    model.load_state_dict(torch.load(os.getcwd() + "\kun_weight.pt", map_location=torch.device(device)))
 
     model.eval()
 
@@ -89,7 +90,14 @@ class Kun_Classifier:
 
 #TODO
 #img_path = ???.jpg
-#fontpath = ???.ttf
+fontpath = os.getcwd() + '/font\kun.ttf'
+
+# Example
+img_path=  os.getcwd() + '\Dataset\kun/10.jpg'
+
 
 kuner = Kun_Classifier()
 kuner.classify_and_show(img_path, fontpath)
+
+# print(img_path)
+

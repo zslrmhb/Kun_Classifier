@@ -2,10 +2,10 @@
 ---
 
 
-![kun](kun.jpg)
-![kun_classify](kun_predict.jpg)
-![zhiyin](zhiyin.jpg)
-![zhiyin](zhiyin_predict.jpg)
+![kun](Assets/kun.jpg)
+![kun_classify](Assets/kun_predict.jpg)
+![zhiyin](Assets/zhiyin.jpg)
+![zhiyin](Assets/zhiyin_predict.jpg)
 
 
 ## English
