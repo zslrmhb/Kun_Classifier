@@ -3,7 +3,6 @@ import streamlit as st
 import os
 import cv2
 import random
-import numpy as np
 import torch
 import torch.nn as nn
 import  matplotlib.pyplot as plt
