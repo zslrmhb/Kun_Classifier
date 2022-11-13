@@ -133,13 +133,13 @@ with tab1:
 
 
   desired_image = st.select_slider('', options=['kun | 坤', 'chicken | 只因'])
-  if (st.button("Click Here 👆 | 点我 👆")): show_and_classify(desired_image)
+  if (st.button("Click for image 👆 | 点我看图 👆")): show_and_classify(desired_image)
 
 with tab2:
 # Classification
   st.subheader('Classification | 二元坤类器')
   desired_classify = st.select_slider('', options=['kun | 坤',  'Random | 随便', 'chicken | 只因'])
-  if (st.button("Click Here 👆 | 点我 👆")): show_and_classify(desired_classify, True)
+  if (st.button("Click for classification 👆 | 点我看玄只因 👆")): show_and_classify(desired_classify, True)
 
 with tab3:
 # User Input
